@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Giphy</title>
+	<link rel='stylesheet' href='styles/bootstrap.min.css' type='text/css' media='all'>
+	<script type="text/javascript" src='scripts/jquery.min.js'></script>
+	<script type="text/javascript" src='scripts/main.js'></script>
+	<script src="scripts/handlebars.js"></script>
+	<meta charset='utf-8'>
+</head>
+<body>
+	<div class="container">
+		<div class="row header">
+            <h1>Search all Giphy GIFs for a tag</h1>  
+        </div>
+        <div class="updates">
+        </div>
+        
+
+	    <div class="row">
+ 		    <script id="template" type="text/x-handlebars-template"> 
+	 		    {{#each data}}
+                    <div class="col-sm-6 col-md-5">
+                        <div class="thumbnail"><img src="{{images.fixed_height.url}}" class="logo">
+                            <div class="caption">
+                                <p>Username: {{user.display_name}}</p>
+                                <p>Profile URL: <a href = "{{user.profile_url}}">{{user.profile_url}}</a></p>
+	                            <p>Rating: {{rating}}</p>
+	                        </div>
+                        </div>
+                    </div>
+	            {{/each}}
+		    </script>
+        </div>
+    </div>
+</body>
+</html>
