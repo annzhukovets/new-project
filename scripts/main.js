@@ -1,7 +1,6 @@
 "use strict";
 
-jQuery(function($){
-    let key = 'dc6zaTOxFJmzC',
+let key = 'dc6zaTOxFJmzC',
     limit=6, 
     tag='funny';
  
@@ -25,8 +24,8 @@ let getInfo = () => {
         }
     });
 }
-    $(document).ready(function () {
-        getInfo();
-        setInterval(getInfo, 60000);
-    });;
-});
+
+$(document).ready(function () {
+    getInfo();
+    setInterval(getInfo, 60000);
+});;
