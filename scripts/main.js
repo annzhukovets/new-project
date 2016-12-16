@@ -1,31 +1,38 @@
 "use strict";
 
-let key = 'dc6zaTOxFJmzC',
+var key = 'dc6zaTOxFJmzC',
     limit=6, 
-    tag='funny';
+    tag=["funny", "happy", "cat", "dog", "pizza"];
  
-let getInfo = () => {
+var getJSON = () => {
     $.ajax({
-        url: 'http://api.giphy.com/v1/gifs/search?q='+tag+'&api_key='+key+'&limit='+limit,
+        url: 'http://api.giphy.com/v1/gifs/search?q='+tag[0]+'&api_key='+key+'&limit='+limit,
         dataType: 'json',
         type: 'GET',
-        parameters: {
-            'q':tag, 
-            'api_key': key,
-            'limit': limit
-        },
-        success: function(result){
-            console.log(result);
-            var template = Handlebars.compile( $('#template').html()  );
-            $('.updates').empty().append( template(result)  );
-        },
-        error: function(result){
-            console.log("error");
-        }
+        success:function(response) { 
+
+                if(response.meta.status !== 200) {
+                    $("#error").text(response.meta.msg + " " + response.meta.status);
+                    $("#error").css("display","block");
+                } else $("#error").css("display","none");
+                 console.log(response);
+                 var template = Handlebars.compile( $('#template').html()  );
+                 $('.updates').append( template(response)  );
+             },
+             error:function(err) {
+                $("#error").text(err.statusText + " " + err.status);
+                $("#error").css("display","block");
+                console.log(err); 
+             }
     });
 }
 
+var changeValueTag = function() {
+    tag.push(tag.shift());
+}
+
 $(document).ready(function () {
-    getInfo();
-    setInterval(getInfo, 60000);
-});;
+    setInterval(function(){
+  getJSON();
+  changeValueTag();}, 3000);
+});
